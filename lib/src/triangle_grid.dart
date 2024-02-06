@@ -5,52 +5,55 @@ import 'lat_lng_triangle.dart';
 import 'vector_3.dart';
 import 'vector_3_triangle.dart';
 
-final phi = (1 + sqrt(5)) / 2;
-final magnitude = 1 / sqrt(1 + pow(phi, 2));
-final x = 1 * magnitude;
-final z = phi * magnitude;
-const n = 0.0;
-final icosphereVerts = [
-  Vector3(-x, n, z),
-  Vector3(x, n, z),
-  Vector3(-x, n, -z),
-  Vector3(x, n, -z),
-  Vector3(n, z, x),
-  Vector3(n, z, -x),
-  Vector3(n, -z, x),
-  Vector3(n, -z, -x),
-  Vector3(z, x, n),
-  Vector3(-z, x, n),
-  Vector3(z, -x, n),
-  Vector3(-z, -x, n),
+final _phi = (1 + sqrt(5)) / 2;
+final _magnitude = 1 / sqrt(1 + pow(_phi, 2));
+final _x = 1 * _magnitude;
+final _z = _phi * _magnitude;
+const _n = 0.0;
+final _icosphereVerts = [
+  Vector3(-_x, _n, _z),
+  Vector3(_x, _n, _z),
+  Vector3(-_x, _n, -_z),
+  Vector3(_x, _n, -_z),
+  Vector3(_n, _z, _x),
+  Vector3(_n, _z, -_x),
+  Vector3(_n, -_z, _x),
+  Vector3(_n, -_z, -_x),
+  Vector3(_z, _x, _n),
+  Vector3(-_z, _x, _n),
+  Vector3(_z, -_x, _n),
+  Vector3(-_z, -_x, _n),
 ];
-final icosphereTriangles = [
-  Vector3Triangle(icosphereVerts[0], icosphereVerts[4], icosphereVerts[1]),
-  Vector3Triangle(icosphereVerts[0], icosphereVerts[9], icosphereVerts[4]),
-  Vector3Triangle(icosphereVerts[9], icosphereVerts[5], icosphereVerts[4]),
-  Vector3Triangle(icosphereVerts[4], icosphereVerts[5], icosphereVerts[8]),
+final _icosphereTriangles = [
+  Vector3Triangle(_icosphereVerts[0], _icosphereVerts[4], _icosphereVerts[1]),
+  Vector3Triangle(_icosphereVerts[0], _icosphereVerts[9], _icosphereVerts[4]),
+  Vector3Triangle(_icosphereVerts[9], _icosphereVerts[5], _icosphereVerts[4]),
+  Vector3Triangle(_icosphereVerts[4], _icosphereVerts[5], _icosphereVerts[8]),
   //
-  Vector3Triangle(icosphereVerts[4], icosphereVerts[8], icosphereVerts[1]),
-  Vector3Triangle(icosphereVerts[8], icosphereVerts[10], icosphereVerts[1]),
-  Vector3Triangle(icosphereVerts[8], icosphereVerts[3], icosphereVerts[10]),
-  Vector3Triangle(icosphereVerts[5], icosphereVerts[3], icosphereVerts[8]),
+  Vector3Triangle(_icosphereVerts[4], _icosphereVerts[8], _icosphereVerts[1]),
+  Vector3Triangle(_icosphereVerts[8], _icosphereVerts[10], _icosphereVerts[1]),
+  Vector3Triangle(_icosphereVerts[8], _icosphereVerts[3], _icosphereVerts[10]),
+  Vector3Triangle(_icosphereVerts[5], _icosphereVerts[3], _icosphereVerts[8]),
   //
-  Vector3Triangle(icosphereVerts[5], icosphereVerts[2], icosphereVerts[3]),
-  Vector3Triangle(icosphereVerts[2], icosphereVerts[7], icosphereVerts[3]),
-  Vector3Triangle(icosphereVerts[7], icosphereVerts[10], icosphereVerts[3]),
-  Vector3Triangle(icosphereVerts[7], icosphereVerts[6], icosphereVerts[10]),
+  Vector3Triangle(_icosphereVerts[5], _icosphereVerts[2], _icosphereVerts[3]),
+  Vector3Triangle(_icosphereVerts[2], _icosphereVerts[7], _icosphereVerts[3]),
+  Vector3Triangle(_icosphereVerts[7], _icosphereVerts[10], _icosphereVerts[3]),
+  Vector3Triangle(_icosphereVerts[7], _icosphereVerts[6], _icosphereVerts[10]),
   //
-  Vector3Triangle(icosphereVerts[7], icosphereVerts[11], icosphereVerts[6]),
-  Vector3Triangle(icosphereVerts[11], icosphereVerts[0], icosphereVerts[6]),
-  Vector3Triangle(icosphereVerts[0], icosphereVerts[1], icosphereVerts[6]),
-  Vector3Triangle(icosphereVerts[6], icosphereVerts[1], icosphereVerts[10]),
+  Vector3Triangle(_icosphereVerts[7], _icosphereVerts[11], _icosphereVerts[6]),
+  Vector3Triangle(_icosphereVerts[11], _icosphereVerts[0], _icosphereVerts[6]),
+  Vector3Triangle(_icosphereVerts[0], _icosphereVerts[1], _icosphereVerts[6]),
+  Vector3Triangle(_icosphereVerts[6], _icosphereVerts[1], _icosphereVerts[10]),
   //
-  Vector3Triangle(icosphereVerts[9], icosphereVerts[0], icosphereVerts[11]),
-  Vector3Triangle(icosphereVerts[9], icosphereVerts[11], icosphereVerts[2]),
-  Vector3Triangle(icosphereVerts[9], icosphereVerts[2], icosphereVerts[5]),
-  Vector3Triangle(icosphereVerts[7], icosphereVerts[2], icosphereVerts[11]),
+  Vector3Triangle(_icosphereVerts[9], _icosphereVerts[0], _icosphereVerts[11]),
+  Vector3Triangle(_icosphereVerts[9], _icosphereVerts[11], _icosphereVerts[2]),
+  Vector3Triangle(_icosphereVerts[9], _icosphereVerts[2], _icosphereVerts[5]),
+  Vector3Triangle(_icosphereVerts[7], _icosphereVerts[2], _icosphereVerts[11]),
 ];
 
+/// Main class for the triangle grid operations.
+///
+/// Use static methods from this class to convert between [LatLng] and triangle hash strings.
 abstract class TriangleGrid {
   static int _findContainingTriangle(
       List<Vector3Triangle> triangles, Vector3 vector) {
@@ -73,8 +76,8 @@ abstract class TriangleGrid {
   }
 
   static String _vectorToHash(Vector3 vector, int depth) {
-    final firstIndex = _findContainingTriangle(icosphereTriangles, vector);
-    final next = icosphereTriangles[firstIndex].subdivide();
+    final firstIndex = _findContainingTriangle(_icosphereTriangles, vector);
+    final next = _icosphereTriangles[firstIndex].subdivide();
     final hashRest = _vectorToHashTriangles(next, vector, depth - 1);
     return String.fromCharCode('A'.codeUnits[0] + firstIndex) + hashRest;
   }
@@ -91,7 +94,7 @@ abstract class TriangleGrid {
 
   static Vector3Triangle _hashToTriangleRoot(String hash) {
     final initialIndex = hash.codeUnits[0] - 'A'.codeUnits[0];
-    final initial = icosphereTriangles[initialIndex];
+    final initial = _icosphereTriangles[initialIndex];
     return _hashToTriangle(initial, hash.substring(1));
   }
 
@@ -110,6 +113,7 @@ abstract class TriangleGrid {
     return _hashToVector(hash).toLatLng();
   }
 
+  /// Converts a triangle hash string to a [LatLngTriangle].
   static LatLngTriangle hashToLatLngTriangle(String hash) {
     final triangle = _hashToTriangleRoot(hash);
     return LatLngTriangle.fromVector3Triangle(triangle);

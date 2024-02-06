@@ -2,11 +2,18 @@ import 'dart:math';
 
 import 'lat_lng.dart';
 
+/// A 3D vector. Used to represent a point in 3D space.
 class Vector3 {
+  /// The x component of the vector.
   final double x;
+
+  /// The y component of the vector.
   final double y;
+
+  /// The z component of the vector.
   final double z;
 
+  /// Creates a new vector with the given [x], [y], and [z] components.
   Vector3(this.x, this.y, this.z);
 
   /// Multiply each component of the vector by [factor].
@@ -44,6 +51,7 @@ class Vector3 {
   /// The normalized vector (vector with length 1).
   Vector3 normalize() => this / length;
 
+  /// Converts the [LatLng] to a [Vector3].
   factory Vector3.fromLatLng(LatLng latLng) {
     final pitch = latLng.latitude * pi / 180;
     final xyFactor = cos(pitch);
@@ -56,6 +64,7 @@ class Vector3 {
     );
   }
 
+  /// Converts the [Vector3] to a [LatLng].
   LatLng toLatLng() {
     return LatLng.fromVector(this);
   }

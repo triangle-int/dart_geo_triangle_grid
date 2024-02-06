@@ -1,4 +1,4 @@
-Create triangle grid on the real world map.
+A package for creating a triangle grid on a map. The grid is created by dividing the map into icosphere with 20 triangles and each triangle is divided into 4 smaller triangles and so on.
 
 ## Features
 

@@ -2,8 +2,15 @@ import 'dart:math';
 
 import 'vector_3.dart';
 
+/// A point on the surface of the earth.
+///
+/// This class is used to represent a point on the surface of the earth using
+/// latitude and longitude.
 class LatLng {
+  /// The latitude of the point. Range is from -90 to 90.
   final double latitude;
+
+  /// The longitude of the point. Range is from -180 to 180.
   final double longitude;
 
   LatLng(this.latitude, this.longitude);
@@ -17,6 +24,7 @@ class LatLng {
         other.longitude == longitude;
   }
 
+  /// Converts the [Vector3] to a [LatLng].
   factory LatLng.fromVector(Vector3 vector) {
     final pitch = asin(vector.z);
     final xyFactor = cos(pitch);
@@ -25,6 +33,7 @@ class LatLng {
     return LatLng(pitch / pi * 180, yaw / pi * 180);
   }
 
+  /// Converts the [LatLng] to a [Vector3].
   Vector3 toVector() {
     return Vector3.fromLatLng(this);
   }
