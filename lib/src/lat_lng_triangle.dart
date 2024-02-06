@@ -1,11 +1,20 @@
 import 'lat_lng.dart';
 import 'vector_3_triangle.dart';
 
+/// A triangle defined by three [LatLng] points.
+///
+/// This class is used to represent a triangle on the surface of the earth.
 class LatLngTriangle {
+  /// The first vertex of the triangle.
   final LatLng a;
+
+  /// The second vertex of the triangle.
   final LatLng b;
+
+  /// The third vertex of the triangle.
   final LatLng c;
 
+  /// Creates a new [LatLngTriangle] with the given vertices.
   LatLngTriangle(this.a, this.b, this.c);
 
   /// Center point of the triangle.
@@ -24,6 +33,7 @@ class LatLngTriangle {
         other.c == c;
   }
 
+  /// Converts the [Vector3Triangle] to a [LatLngTriangle].
   factory LatLngTriangle.fromVector3Triangle(Vector3Triangle triangle) {
     return LatLngTriangle(
       triangle.a.toLatLng(),
@@ -32,6 +42,7 @@ class LatLngTriangle {
     );
   }
 
+  /// Converts the [LatLngTriangle] to a [Vector3Triangle].
   Vector3Triangle toVector3Triangle() {
     return Vector3Triangle.fromLatLngTriangle(this);
   }

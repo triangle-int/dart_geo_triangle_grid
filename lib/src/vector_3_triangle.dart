@@ -1,6 +1,9 @@
 import 'lat_lng_triangle.dart';
 import 'vector_3.dart';
 
+/// A triangle defined by three [Vector3] points.
+///
+/// This class is used to represent a triangle in 3D space.
 class Vector3Triangle {
   final Vector3 a;
   final Vector3 b;
@@ -33,6 +36,7 @@ class Vector3Triangle {
     ];
   }
 
+  /// Converts the [LatLngTriangle] to a [Vector3Triangle].
   factory Vector3Triangle.fromLatLngTriangle(LatLngTriangle triangle) {
     return Vector3Triangle(
       Vector3.fromLatLng(triangle.a),
@@ -41,6 +45,7 @@ class Vector3Triangle {
     );
   }
 
+  /// Converts the [Vector3Triangle] to a [LatLngTriangle].
   LatLngTriangle toLatLngTriangle() {
     return LatLngTriangle.fromVector3Triangle(this);
   }
