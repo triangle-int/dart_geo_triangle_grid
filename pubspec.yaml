@@ -1,6 +1,6 @@
 name: geo_triangle_grid
-description: A package for creating a triangle grid on a map. The grid is created by dividing the map into icosphere with 20 triangles and each triangle is divided into 4 smaller triangles and so on.
-version: 1.0.1
+description: A package for creating a triangle grid on a map and converting them into hash for fast search.
+version: 1.0.2
 repository: https://github.com/triangle-int/dart_geo_triangle_grid
 
 environment:

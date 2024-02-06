@@ -5,10 +5,16 @@ import 'vector_3.dart';
 ///
 /// This class is used to represent a triangle in 3D space.
 class Vector3Triangle {
+  /// The first point of the triangle.
   final Vector3 a;
+
+  /// The second point of the triangle.
   final Vector3 b;
+
+  /// The third point of the triangle.
   final Vector3 c;
 
+  /// Creates a [Vector3Triangle] from three [Vector3] points.
   Vector3Triangle(this.a, this.b, this.c);
 
   /// Returns `true` if [vector] is inside the triangle.
