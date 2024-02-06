@@ -104,6 +104,9 @@ abstract class TriangleGrid {
   }
 
   /// Converts a [LatLng] to a triangle hash string.
+  ///
+  /// The [depth] parameter specifies the length of the hash string.
+  /// More length means more precision.
   static String latLngToHash(LatLng latLng, [int depth = 20]) {
     return _vectorToHash(Vector3.fromLatLng(latLng), depth);
   }

@@ -36,10 +36,11 @@ print(triangle);
 
 ### `TriangleGrid.latLngToHash`
 
-Converts a location to a triangle hash.
+Converts a location to a triangle hash. The second parameter is optional and it is the length of the triangle grid.
+If not provided, the default value is 20.
 
 ```dart
-String TriangleGrid.latLngToHash(LatLng location);
+String TriangleGrid.latLngToHash(LatLng location, [ int depth = 20 ]);
 ```
 
 ### `TriangleGrid.hashToLatLngTriangle`
