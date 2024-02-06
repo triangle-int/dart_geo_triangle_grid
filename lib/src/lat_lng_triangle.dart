@@ -1,4 +1,5 @@
 import 'lat_lng.dart';
+import 'vector_3_triangle.dart';
 
 class LatLngTriangle {
   final LatLng a;
@@ -21,6 +22,18 @@ class LatLngTriangle {
         other.a == a &&
         other.b == b &&
         other.c == c;
+  }
+
+  factory LatLngTriangle.fromVector3Triangle(Vector3Triangle triangle) {
+    return LatLngTriangle(
+      triangle.a.toLatLng(),
+      triangle.b.toLatLng(),
+      triangle.c.toLatLng(),
+    );
+  }
+
+  Vector3Triangle toVector3Triangle() {
+    return Vector3Triangle.fromLatLngTriangle(this);
   }
 
   @override

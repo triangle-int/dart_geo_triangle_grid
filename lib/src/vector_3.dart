@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'lat_lng.dart';
+
 class Vector3 {
   final double x;
   final double y;
@@ -41,6 +43,22 @@ class Vector3 {
 
   /// The normalized vector (vector with length 1).
   Vector3 normalize() => this / length;
+
+  factory Vector3.fromLatLng(LatLng latLng) {
+    final pitch = latLng.latitude * pi / 180;
+    final xyFactor = cos(pitch);
+    final yaw = latLng.longitude * pi / 180;
+
+    return Vector3(
+      cos(yaw) * xyFactor,
+      sin(yaw) * xyFactor,
+      sin(pitch),
+    );
+  }
+
+  LatLng toLatLng() {
+    return LatLng.fromVector(this);
+  }
 
   @override
   operator ==(Object other) {

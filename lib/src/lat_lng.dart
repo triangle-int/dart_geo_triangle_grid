@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'vector_3.dart';
+
 class LatLng {
   final double latitude;
   final double longitude;
@@ -11,6 +15,18 @@ class LatLng {
     return other is LatLng &&
         other.latitude == latitude &&
         other.longitude == longitude;
+  }
+
+  factory LatLng.fromVector(Vector3 vector) {
+    final pitch = asin(vector.z);
+    final xyFactor = cos(pitch);
+    final yaw = atan2(vector.y / xyFactor, vector.x / xyFactor);
+
+    return LatLng(pitch / pi * 180, yaw / pi * 180);
+  }
+
+  Vector3 toVector() {
+    return Vector3.fromLatLng(this);
   }
 
   @override

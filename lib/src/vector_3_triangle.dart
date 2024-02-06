@@ -1,3 +1,4 @@
+import 'lat_lng_triangle.dart';
 import 'vector_3.dart';
 
 class Vector3Triangle {
@@ -30,6 +31,18 @@ class Vector3Triangle {
       Vector3Triangle(vertices[2], middles[2], middles[1]),
       Vector3Triangle(middles[0], middles[1], middles[2]),
     ];
+  }
+
+  factory Vector3Triangle.fromLatLngTriangle(LatLngTriangle triangle) {
+    return Vector3Triangle(
+      Vector3.fromLatLng(triangle.a),
+      Vector3.fromLatLng(triangle.b),
+      Vector3.fromLatLng(triangle.c),
+    );
+  }
+
+  LatLngTriangle toLatLngTriangle() {
+    return LatLngTriangle.fromVector3Triangle(this);
   }
 
   @override
