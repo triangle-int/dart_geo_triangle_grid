@@ -1,7 +1,7 @@
 name: geo_triangle_grid
 description: A package for creating a triangle grid on a map.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/triangle-int/dart_geo_triangle_grid
 
 environment:
   sdk: ^3.2.6
