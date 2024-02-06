@@ -51,12 +51,13 @@ final icosphereTriangles = [
   Vector3Triangle(icosphereVerts[7], icosphereVerts[2], icosphereVerts[11]),
 ];
 
-class TriangleGrid {
-  int _findContainingTriangle(List<Vector3Triangle> triangles, Vector3 vector) {
+abstract class TriangleGrid {
+  static int _findContainingTriangle(
+      List<Vector3Triangle> triangles, Vector3 vector) {
     return triangles.indexWhere((tri) => tri.contains(vector));
   }
 
-  String _vectorToHashTriangles(
+  static String _vectorToHashTriangles(
     List<Vector3Triangle> triangles,
     Vector3 vector,
     int depth,
@@ -71,14 +72,15 @@ class TriangleGrid {
     return index.toString() + nextHash;
   }
 
-  String _vectorToHash(Vector3 vector, int depth) {
+  static String _vectorToHash(Vector3 vector, int depth) {
     final firstIndex = _findContainingTriangle(icosphereTriangles, vector);
     final next = icosphereTriangles[firstIndex].subdivide();
     final hashRest = _vectorToHashTriangles(next, vector, depth - 1);
     return String.fromCharCode('A'.codeUnits[0] + firstIndex) + hashRest;
   }
 
-  Vector3Triangle _hashToTriangle(Vector3Triangle triangle, String hash) {
+  static Vector3Triangle _hashToTriangle(
+      Vector3Triangle triangle, String hash) {
     if (hash.isEmpty) {
       return triangle;
     }
@@ -87,26 +89,26 @@ class TriangleGrid {
     return _hashToTriangle(next, hash.substring(1));
   }
 
-  Vector3Triangle _hashToTriangleRoot(String hash) {
+  static Vector3Triangle _hashToTriangleRoot(String hash) {
     final initialIndex = hash.codeUnits[0] - 'A'.codeUnits[0];
     final initial = icosphereTriangles[initialIndex];
     return _hashToTriangle(initial, hash.substring(1));
   }
 
-  Vector3 _hashToVector(String hash) {
+  static Vector3 _hashToVector(String hash) {
     final triangle = _hashToTriangleRoot(hash);
     return (triangle.a + triangle.b + triangle.c) / 3;
   }
 
-  String latLngToHash(LatLng latLng, [int depth = 20]) {
+  static String latLngToHash(LatLng latLng, [int depth = 20]) {
     return _vectorToHash(Vector3.fromLatLng(latLng), depth);
   }
 
-  LatLng hashToLatLng(String hash) {
+  static LatLng hashToLatLng(String hash) {
     return _hashToVector(hash).toLatLng();
   }
 
-  LatLngTriangle hashToLatLngTriangle(String hash) {
+  static LatLngTriangle hashToLatLngTriangle(String hash) {
     final triangle = _hashToTriangleRoot(hash);
     return LatLngTriangle.fromVector3Triangle(triangle);
   }

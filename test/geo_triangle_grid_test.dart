@@ -115,8 +115,10 @@ void main() {
         Vector3(4, 5, 6),
         Vector3(7, 8, 9),
       );
-      expect(triangle.toString(),
-          'Vector3Triangle(a: Vector3(x: 1.0, y: 2.0, z: 3.0), b: Vector3(x: 4.0, y: 5.0, z: 6.0), c: Vector3(x: 7.0, y: 8.0, z: 9.0))');
+      expect(
+        triangle.toString(),
+        'Vector3Triangle(a: Vector3(x: 1.0, y: 2.0, z: 3.0), b: Vector3(x: 4.0, y: 5.0, z: 6.0), c: Vector3(x: 7.0, y: 8.0, z: 9.0))',
+      );
     });
 
     test('should subdivide on four triangles', () {
@@ -197,6 +199,26 @@ void main() {
       );
       final center = triangle.center;
       expect(center, LatLng(1 / 3, 1 / 3));
+    });
+  });
+
+  group('TriangleGird', () {
+    test('should create hash for location', () {
+      // arrange
+      final location = LatLng(51.507351, -0.127758);
+      // act
+      final hash = TriangleGrid.latLngToHash(location, 10);
+      // assert
+      expect(hash, 'F203320022');
+    });
+
+    test('should create location for hash', () {
+      // arrange
+      final hash = 'F203320022';
+      // act
+      final location = TriangleGrid.hashToLatLngTriangle(hash).center;
+      // assert
+      expect(location, LatLng(51.47966748982731, -0.11693856684358583));
     });
   });
 }
