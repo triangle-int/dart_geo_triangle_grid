@@ -100,10 +100,12 @@ abstract class TriangleGrid {
     return (triangle.a + triangle.b + triangle.c) / 3;
   }
 
+  /// Converts a [LatLng] to a triangle hash string.
   static String latLngToHash(LatLng latLng, [int depth = 20]) {
     return _vectorToHash(Vector3.fromLatLng(latLng), depth);
   }
 
+  /// Converts a triangle hash string to a [LatLng].
   static LatLng hashToLatLng(String hash) {
     return _hashToVector(hash).toLatLng();
   }

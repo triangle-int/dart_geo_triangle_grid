@@ -1,39 +1,71 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Create triangle grid on the real world map.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Create triangle from location (latitude, longitude)
+- Create location from triangle
+- Get center of triangle
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Install the package by adding the following to your `pubspec.yaml`:
+
+```yaml
+geo_triangle_grid: ^1.0.0
+```
+
+Import the package in your code:
+
+```dart
+import 'package:geo_triangle_grid/geo_triangle_grid.dart';
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Here is a simple example of usage:
 
 ```dart
-const like = 'sample';
+final location = LatLng(51.507351, -0.127758);
+final triangleHash = TriangleGrid.latLngToHash(location);
+print(triangleHash);
+// prints: F203320022
+final triangle = TriangleGrid.hashToLatLngTriangle(triangleHash);
+print(triangle);
+// prints: LatLng(latitude: 51.507351,  longitude: -0.127758)
 ```
 
-## Additional information
+### `TriangleGrid.latLngToHash`
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Converts a location to a triangle hash.
+
+```dart
+String TriangleGrid.latLngToHash(LatLng location);
+```
+
+### `TriangleGrid.hashToLatLngTriangle`
+
+Converts a triangle hash to a triangle with points.
+
+```dart
+LatLngTriangle TriangleGrid.latLngToHash(String hash);
+```
+
+### `TriangleGrid.hashToLatLng`
+
+Converts a triangle hash to a location.
+
+```dart
+LatLng TriangleGrid.hashToLatLng(String hash);
+```
+
+### `LatLngTriangle.center`
+
+Gets the center of the triangle.
+
+```dart
+LatLng get LatLngTriangle.center;
+```
+
+### Aditional methods
+
+Package also provides some additional methods to work with vectors and triangles. All of them have documentation, you can find them in the [API Reference](https://pub.dev/documentation/geo_triangle_grid/latest/geo_triangle_grid/geo_triangle_grid-library.html).
