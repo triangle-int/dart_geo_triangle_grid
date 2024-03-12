@@ -203,13 +203,32 @@ void main() {
   });
 
   group('TriangleGird', () {
-    test('should create hash for location', () {
+    test('should create hash for location 1', () {
       // arrange
       final location = LatLng(51.507351, -0.127758);
       // act
       final hash = TriangleGrid.latLngToHash(location, 10);
       // assert
       expect(hash, 'F203320022');
+    });
+
+    test('should create hash for location 2', () {
+      // arrange
+      final location = LatLng(-55.664655876693665, -142.24247207544718);
+      // act
+      final hash = TriangleGrid.latLngToHash(location, 20);
+      // assert
+      expect(hash, 'T121313111');
+    });
+
+    test('should create hash for vector', () {
+      // arrange
+      final vector = Vector3(
+          -0.44593164572355093, -0.3453708955706184, -0.8257505142808175);
+      // act
+      final hash = TriangleGrid.vectorToHash(vector, 20);
+      // assert
+      expect(hash, 'T121313111');
     });
 
     test('should create location for hash', () {

@@ -23,7 +23,11 @@ class Vector3Triangle {
     for (var i = 0; i < 3; i++) {
       final normal = vertices[i].cross(vertices[(i + 1) % 3]);
 
-      if (normal.dot(vector) > 0) return false;
+      final d = normal.dot(vector);
+      if (d == 0) {
+        print('Pizdez');
+      }
+      if (d > 0) return false;
     }
     return true;
   }

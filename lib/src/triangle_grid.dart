@@ -69,6 +69,9 @@ abstract class TriangleGrid {
       return '';
     }
 
+    final latLng = vector.toLatLng();
+    print('Debug point: $latLng');
+
     final index = _findContainingTriangle(triangles, vector);
     final next = triangles[index].subdivide();
     final nextHash = _vectorToHashTriangles(next, vector, depth - 1);
@@ -122,16 +125,23 @@ abstract class TriangleGrid {
     return LatLngTriangle.fromVector3Triangle(triangle);
   }
 
+  static String vectorToHash(Vector3 vector, [int depth = 20]) {
+    return _vectorToHash(vector, depth);
+  }
+
   static List<String> _getNeighbours(String hash) {
     final triangle = _hashToTriangleRoot(hash);
 
-    final sidePoint1 = (triangle.b - triangle.a) / 2 + triangle.a;
-    final sidePoint2 = (triangle.c - triangle.b) / 2 + triangle.b;
-    final sidePoint3 = (triangle.a - triangle.c) / 2 + triangle.c;
+    final sidePoint1 = ((triangle.a + triangle.b) / 2).normalize();
+    final sidePoint2 = ((triangle.b + triangle.c) / 2).normalize();
+    final sidePoint3 = ((triangle.c + triangle.a) / 2).normalize();
 
-    final center1 = (sidePoint1 - triangle.center) * 2 + triangle.center;
-    final center2 = (sidePoint2 - triangle.center) * 2 + triangle.center;
-    final center3 = (sidePoint3 - triangle.center) * 2 + triangle.center;
+    final center1 =
+        ((sidePoint1 - triangle.center) * 2 + triangle.center).normalize();
+    final center2 =
+        ((sidePoint2 - triangle.center) * 2 + triangle.center).normalize();
+    final center3 =
+        ((sidePoint3 - triangle.center) * 2 + triangle.center).normalize();
 
     final hash1 = _vectorToHash(center1, hash.length);
     final hash2 = _vectorToHash(center2, hash.length);
