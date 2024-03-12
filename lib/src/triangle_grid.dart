@@ -121,4 +121,30 @@ abstract class TriangleGrid {
     final triangle = _hashToTriangleRoot(hash);
     return LatLngTriangle.fromVector3Triangle(triangle);
   }
+
+  /// Returns triangles in latlng bounds.
+  static List<LatLngTriangle> trianglesInBounds(
+      LatLng southWest, LatLng northEast, int depth) {
+    final swHash = latLngToHash(southWest);
+    final neHash = latLngToHash(northEast);
+
+    int prefixLength = 0;
+    for (var i = 0; i < swHash.length; i++) {
+      if (swHash[i] != neHash[i]) {
+        break;
+      }
+      prefixLength++;
+    }
+
+    final containingTriangle =
+        _hashToTriangleRoot(swHash.substring(0, prefixLength));
+    List<Vector3Triangle> triangles = [containingTriangle];
+    for (var i = prefixLength; i < depth; i++) {
+      triangles = triangles.expand((tri) => tri.subdivide()).toList();
+    }
+
+    return triangles
+        .map((tri) => LatLngTriangle.fromVector3Triangle(tri))
+        .toList();
+  }
 }
