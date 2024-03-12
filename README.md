@@ -5,13 +5,14 @@ A package for creating a triangle grid on a map. The grid is created by dividing
 - Create triangle from location (latitude, longitude)
 - Create location from triangle
 - Get center of triangle
+- Get triangles of specified depth in bounds
 
 ## Getting started
 
 Install the package by adding the following to your `pubspec.yaml`:
 
 ```yaml
-geo_triangle_grid: ^1.0.0
+geo_triangle_grid: ^1.1.1
 ```
 
 Import the package in your code:

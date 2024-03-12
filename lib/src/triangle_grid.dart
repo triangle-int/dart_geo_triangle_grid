@@ -122,24 +122,53 @@ abstract class TriangleGrid {
     return LatLngTriangle.fromVector3Triangle(triangle);
   }
 
+  static List<String> _getNeighbours(String hash) {
+    final triangle = _hashToTriangleRoot(hash);
+
+    final sidePoint1 = (triangle.b - triangle.a) / 2 + triangle.a;
+    final sidePoint2 = (triangle.c - triangle.b) / 2 + triangle.b;
+    final sidePoint3 = (triangle.a - triangle.c) / 2 + triangle.c;
+
+    final center1 = (sidePoint1 - triangle.center) * 2 + triangle.center;
+    final center2 = (sidePoint2 - triangle.center) * 2 + triangle.center;
+    final center3 = (sidePoint3 - triangle.center) * 2 + triangle.center;
+
+    final hash1 = _vectorToHash(center1, hash.length);
+    final hash2 = _vectorToHash(center2, hash.length);
+    final hash3 = _vectorToHash(center3, hash.length);
+
+    return [hash1, hash2, hash3];
+  }
+
   /// Returns triangles in latlng bounds.
   static List<LatLngTriangle> trianglesInBounds(
       LatLng southWest, LatLng northEast, int depth) {
-    final swHash = latLngToHash(southWest);
-    final neHash = latLngToHash(northEast);
+    final center = LatLng(
+      (southWest.latitude + northEast.latitude) / 2,
+      (southWest.longitude + northEast.longitude) / 2,
+    );
 
-    int prefixLength = 0;
-    for (var i = 0; i < swHash.length; i++) {
-      if (swHash[i] != neHash[i]) {
+    var centerHash = latLngToHash(center);
+    List<String> neighboursHash = [];
+    while (centerHash.isNotEmpty) {
+      neighboursHash = _getNeighbours(centerHash);
+
+      final insideBounds = neighboursHash.every((hash) {
+        final triangle = hashToLatLngTriangle(hash);
+        return triangle.isInBounds(southWest, northEast);
+      });
+
+      if (insideBounds) {
+        centerHash = centerHash.substring(0, centerHash.length - 1);
+      } else {
         break;
       }
-      prefixLength++;
     }
 
-    final containingTriangle =
-        _hashToTriangleRoot(swHash.substring(0, prefixLength));
-    List<Vector3Triangle> triangles = [containingTriangle];
-    for (var i = prefixLength; i < depth; i++) {
+    var triangles = [...neighboursHash, centerHash]
+        .map((hash) => _hashToTriangleRoot(hash))
+        .toList();
+    for (var i = centerHash.length; i < depth; i++) {
       triangles = triangles.expand((tri) => tri.subdivide()).toList();
     }
 

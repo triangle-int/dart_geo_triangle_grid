@@ -1,6 +1,6 @@
 name: geo_triangle_grid
 description: A package for creating a triangle grid on a map and converting them into hash for fast search.
-version: 1.1.0
+version: 1.1.1
 repository: https://github.com/triangle-int/dart_geo_triangle_grid
 
 environment:

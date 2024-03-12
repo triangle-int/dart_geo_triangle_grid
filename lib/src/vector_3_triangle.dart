@@ -42,6 +42,9 @@ class Vector3Triangle {
     ];
   }
 
+  /// Center point of the triangle.
+  Vector3 get center => a + b + c / 3;
+
   /// Converts the [LatLngTriangle] to a [Vector3Triangle].
   factory Vector3Triangle.fromLatLngTriangle(LatLngTriangle triangle) {
     return Vector3Triangle(
