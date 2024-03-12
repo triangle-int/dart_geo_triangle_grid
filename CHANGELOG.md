@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Added methods for getting triangles in LatLng bounds.
+
 ## 1.0.2
 
 - Updated documentation.

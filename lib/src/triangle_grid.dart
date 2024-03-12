@@ -145,6 +145,7 @@ abstract class TriangleGrid {
 
     return triangles
         .map((tri) => LatLngTriangle.fromVector3Triangle(tri))
+        .where((tri) => tri.isOnePointInBounds(southWest, northEast))
         .toList();
   }
 }

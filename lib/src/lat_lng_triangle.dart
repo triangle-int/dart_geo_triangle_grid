@@ -23,6 +23,18 @@ class LatLngTriangle {
         (a.longitude + b.longitude + c.longitude) / 3,
       );
 
+  bool isInBounds(LatLng southwest, LatLng northeast) {
+    return a.isInBounds(southwest, northeast) &&
+        b.isInBounds(southwest, northeast) &&
+        c.isInBounds(southwest, northeast);
+  }
+
+  bool isOnePointInBounds(LatLng southwest, LatLng northeast) {
+    return a.isInBounds(southwest, northeast) ||
+        b.isInBounds(southwest, northeast) ||
+        c.isInBounds(southwest, northeast);
+  }
+
   @override
   operator ==(Object other) {
     if (identical(this, other)) return true;

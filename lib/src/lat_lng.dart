@@ -15,6 +15,13 @@ class LatLng {
 
   LatLng(this.latitude, this.longitude);
 
+  bool isInBounds(LatLng southwest, LatLng northeast) {
+    return southwest.latitude <= latitude &&
+        northeast.latitude >= latitude &&
+        southwest.longitude <= longitude &&
+        northeast.longitude >= longitude;
+  }
+
   @override
   operator ==(Object other) {
     if (identical(this, other)) return true;
