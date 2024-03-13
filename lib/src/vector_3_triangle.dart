@@ -23,6 +23,8 @@ class Vector3Triangle {
     for (var i = 0; i < 3; i++) {
       final normal = vertices[i].cross(vertices[(i + 1) % 3]).normalize();
 
+      print(normal.length);
+
       final d = normal.dot(vector);
       if (d > 0) return false;
     }
@@ -44,7 +46,7 @@ class Vector3Triangle {
   }
 
   /// Center point of the triangle.
-  Vector3 get center => a + b + c / 3;
+  Vector3 get center => (a + b + c) / 3;
 
   /// Converts the [LatLngTriangle] to a [Vector3Triangle].
   factory Vector3Triangle.fromLatLngTriangle(LatLngTriangle triangle) {

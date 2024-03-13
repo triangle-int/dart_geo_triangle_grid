@@ -69,10 +69,15 @@ abstract class TriangleGrid {
       return '';
     }
 
-    final latLng = vector.toLatLng();
-    print('Debug point: $latLng');
-
     final index = _findContainingTriangle(triangles, vector);
+    if (index == -1) {
+      final vertices = [triangles[0].a, triangles[0].b, triangles[0].c]
+          .map((v) => (v - vector) * 1e8)
+          .toList();
+      print(vertices);
+      throw Exception('Vector is not in any triangle');
+    }
+
     final next = triangles[index].subdivide();
     final nextHash = _vectorToHashTriangles(next, vector, depth - 1);
     return index.toString() + nextHash;
