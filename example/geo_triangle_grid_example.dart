@@ -1,9 +1,22 @@
+import 'dart:math';
+
 import 'package:geo_triangle_grid/geo_triangle_grid.dart';
 
 void main() {
-  latLngToHash();
-  latLngToHashWithDepth();
-  hashToLatLng();
+  // latLngToHash();
+  // latLngToHashWithDepth();
+  // hashToLatLng();
+  // Generate 1000 random latlng points
+  final random = Random();
+  final randomPoints = List.generate(100000, (index) {
+    final lat = -90 + 180 * (random.nextDouble());
+    final lng = -180 + 360 * (random.nextDouble());
+    return LatLng(lat, lng);
+  });
+
+  final hashes =
+      randomPoints.map((latLng) => TriangleGrid.latLngToHash(latLng)).toList();
+  print(hashes);
 }
 
 void latLngToHash() {

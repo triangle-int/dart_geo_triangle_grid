@@ -17,25 +17,11 @@ class Vector3Triangle {
   /// Creates a [Vector3Triangle] from three [Vector3] points.
   Vector3Triangle(this.a, this.b, this.c);
 
-  /// Returns `true` if [vector] is inside the triangle.
-  bool contains(Vector3 vector) {
-    final vertices = [a, b, c];
-    for (var i = 0; i < 3; i++) {
-      final normal = vertices[i].cross(vertices[(i + 1) % 3]).normalize();
-
-      print(normal.length);
-
-      final d = normal.dot(vector);
-      if (d > 0) return false;
-    }
-    return true;
-  }
-
   /// Subdivides the triangle into 4 smaller triangles.
   List<Vector3Triangle> subdivide() {
     final vertices = [a, b, c];
     final middles = [0, 1, 2]
-        .map((i) => ((vertices[i] + vertices[(i + 1) % 3])).normalize())
+        .map((i) => ((vertices[i] + vertices[(i + 1) % 3]).normalize()))
         .toList();
     return [
       Vector3Triangle(vertices[0], middles[0], middles[2]),

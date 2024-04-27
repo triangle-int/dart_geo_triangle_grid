@@ -57,7 +57,16 @@ final _icosphereTriangles = [
 abstract class TriangleGrid {
   static int _findContainingTriangle(
       List<Vector3Triangle> triangles, Vector3 vector) {
-    return triangles.indexWhere((tri) => tri.contains(vector));
+    var minDot = double.infinity;
+    var minIndex = -1;
+    for (var i = 0; i < triangles.length; i++) {
+      final dot = triangles[i].center.dot(vector);
+      if (dot < minDot) {
+        minDot = dot;
+        minIndex = i;
+      }
+    }
+    return minIndex;
   }
 
   static String _vectorToHashTriangles(
@@ -178,11 +187,15 @@ abstract class TriangleGrid {
       } else {
         break;
       }
+      print('Left: ${centerHash.length}');
     }
+
+    print('Hash length calculated: ${centerHash.length}');
 
     var triangles = [...neighboursHash, centerHash]
         .map((hash) => _hashToTriangleRoot(hash))
         .toList();
+    print('Triangles: ${triangles.length}');
     for (var i = centerHash.length; i < depth; i++) {
       triangles = triangles.expand((tri) => tri.subdivide()).toList();
     }
