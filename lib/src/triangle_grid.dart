@@ -57,16 +57,16 @@ final _icosphereTriangles = [
 abstract class TriangleGrid {
   static int _findContainingTriangle(
       List<Vector3Triangle> triangles, Vector3 vector) {
-    var minDot = double.infinity;
-    var minIndex = -1;
+    var maxDot = double.negativeInfinity;
+    var maxIndex = -1;
     for (var i = 0; i < triangles.length; i++) {
       final dot = triangles[i].center.dot(vector);
-      if (dot < minDot) {
-        minDot = dot;
-        minIndex = i;
+      if (dot > maxDot) {
+        maxDot = dot;
+        maxIndex = i;
       }
     }
-    return minIndex;
+    return maxIndex;
   }
 
   static String _vectorToHashTriangles(
@@ -80,10 +80,6 @@ abstract class TriangleGrid {
 
     final index = _findContainingTriangle(triangles, vector);
     if (index == -1) {
-      final vertices = [triangles[0].a, triangles[0].b, triangles[0].c]
-          .map((v) => (v - vector) * 1e8)
-          .toList();
-      print(vertices);
       throw Exception('Vector is not in any triangle');
     }
 

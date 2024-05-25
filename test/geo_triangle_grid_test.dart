@@ -216,7 +216,7 @@ void main() {
       // arrange
       final location = LatLng(-55.664655876693665, -142.24247207544718);
       // act
-      final hash = TriangleGrid.latLngToHash(location, 20);
+      final hash = TriangleGrid.latLngToHash(location, 10);
       // assert
       expect(hash, 'T121313111');
     });
@@ -228,7 +228,7 @@ void main() {
       // act
       final hash = TriangleGrid.vectorToHash(vector, 20);
       // assert
-      expect(hash, 'T121313111');
+      expect(hash, 'T1213131113010323100');
     });
 
     test('should create location for hash', () {
@@ -238,6 +238,18 @@ void main() {
       final location = TriangleGrid.hashToLatLngTriangle(hash).center;
       // assert
       expect(location, LatLng(51.47966748982731, -0.11693856684358583));
+    });
+
+    test('should reverse location', () {
+      // arrange
+      final location = LatLng(51.507351, -0.127758);
+      // act
+      final hash = TriangleGrid.latLngToHash(location, 10);
+      final reverseLocation = TriangleGrid.hashToLatLng(hash);
+      final reverseHash = TriangleGrid.latLngToHash(reverseLocation, 10);
+      final result = TriangleGrid.hashToLatLng(reverseHash);
+      // assert
+      expect(result, reverseLocation);
     });
   });
 }
